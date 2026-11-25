@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b987b">
+  <title>RecipeHub — Cook something wonderful</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+
+
+    <section class="screen auth-screen active" id="authScreen">
+      <div class="auth-brand"><span class="brand-mark">R</span><span>Recipe<span>Hub</span></span></div>
+      <div class="auth-layout">
+        <div class="auth-art">
+          <p class="eyebrow">GOOD FOOD. GOOD MOOD.</p>
+          <h1>Your next favourite<br>meal starts here.</h1>
+          <p>Discover recipes, save the ones you love, and share your kitchen creations with a community of food lovers.</p>
+          <div class="auth-art-pills"><span>🍲  Explore recipes</span><span>♡  Save favourites</span><span>✦  Share your creations</span></div>
+        </div>
+        <div class="auth-card">
+          <div class="auth-tabs"><button class="active" data-auth-tab="login">Log in</button><button data-auth-tab="signup">Sign up</button></div>
+          <div id="loginPanel">
+            <p class="eyebrow">WELCOME BACK</p><h2>Log in to your account</h2><p class="auth-subtitle">Pick up where your cooking journey left off.</p>
+            <form id="loginForm">
+              <label class="field-label">Email address<input name="email" type="email" placeholder="you@example.com" required></label>
+              <label class="field-label">Password<input name="password" type="password" placeholder="Enter your password" required minlength="4"></label>
+              <button class="primary-btn full-btn" type="submit">Log in</button>
+            </form>
+            <p class="auth-switch">New to RecipeHub? <button data-auth-tab="signup">Create an account</button></p>
+          </div>
+          <div id="signupPanel" hidden>
+            <p class="eyebrow">JOIN THE COMMUNITY</p><h2>Create your account</h2><p class="auth-subtitle">A little inspiration for every meal.</p>
+            <form id="signupForm">
+              <label class="field-label">Your name<input name="name" placeholder="e.g. Fola James" required></label>
+              <label class="field-label">Email address<input name="email" type="email" placeholder="you@example.com" required></label>
+              <label class="field-label">Password<input name="password" type="password" placeholder="At least 4 characters" required minlength="4"></label>
+              <button class="primary-btn full-btn" type="submit">Create account</button>
+            </form>
+            <p class="auth-switch">Already a member? <button data-auth-tab="login">Log in</button></p>
+          </div>
+          <p class="demo-note">Demo frontend: account details are saved only in this browser.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="homeScreen">
+      <header class="greeting">
+        <div><p class="eyebrow">TUESDAY, LET'S COOK</p><h1>Hello, Fola <span class="wave">✦</span></h1><p class="muted">What are you cooking today?</p></div>
+        <button class="avatar" aria-label="Open profile" data-page="profile">👨🏽‍🍳</button>
+      </header>
+
+      <div class="search-row">
+        <label class="search-box"><span>⌕</span><input id="homeSearch" type="search" placeholder="Search recipes, ingredients..."></label>
+        <button class="filter-btn" id="openFilters" aria-label="Open filters">☷</button>
+      </div>
+
+      <div class="section-heading"><h2>Explore food categories</h2><button class="text-btn" id="clearCuisine">See all</button></div>
+      <div class="chips" id="cuisineChips">
+        <button class="chip selected" data-category="All">All (50)</button>
+        <button class="chip" data-category="Vegan">Vegan (15)</button>
+        <button class="chip" data-category="Non-veg">Non-veg (15)</button>
+        <button class="chip" data-category="Dessert">Desserts (10)</button>
+        <button class="chip" data-category="Snack">Snacks (10)</button>
+      </div>
+
+      <div class="section-heading"><div><p class="eyebrow">50 RECIPES TO EXPLORE</p><h2 id="popularTitle">All recipes</h2></div><span class="tiny-tag">🍽️ Fresh ideas</span></div>
+      <div class="popular-row" id="popularRecipes"></div>
+
+      <div class="section-heading new-heading"><div><p class="eyebrow">FRESH FROM OUR COMMUNITY</p><h2>New recipes</h2></div><button class="text-btn" id="seeAllNew">View all</button></div>
+      <div class="new-list" id="newRecipes"></div>
+    </section>
+
+    <section class="screen" id="searchScreen">
+      <header class="page-header"><button class="back-btn" data-page="home">‹</button><h1>Search recipes</h1><span class="header-spacer"></span></header>
+      <div class="search-row search-page-row">
+        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search recipe or ingredient..."></label>
+        <button class="filter-btn" id="openFilters2" aria-label="Open filters">☷</button>
+      </div>
+      <div class="section-heading"><h2 id="searchHeading">Discover something delicious</h2><span class="muted small" id="resultCount"></span></div>
+      <div class="search-grid" id="searchResults"></div>
+    </section>
+
+    <section class="screen" id="savedScreen">
+      <header class="page-header"><span></span><h1>Saved recipes</h1><span></span></header>
+      <p class="muted page-intro">Your personal cookbook, all in one place.</p>
+      <div class="saved-list" id="savedRecipes"></div>
+    </section>
+
+    <section class="screen" id="notificationsScreen">
+      <header class="page-header"><span></span><h1>Notifications</h1><span></span></header>
+      <div class="empty-state"><div class="empty-icon">✦</div><h2>You're all caught up!</h2><p>New recipe ideas and community updates will show up here.</p></div>
+    </section>
+
+    <section class="screen" id="profileScreen">
+      <header class="page-header"><span></span><h1>My profile</h1><span></span></header>
+      <div class="profile-card"><div class="profile-avatar">👨🏽‍🍳</div><h2>Fola's Kitchen</h2><p class="muted">Home cook · Recipe explorer</p><div class="profile-stats"><div><b id="savedCount">0</b><span>Saved</span></div><div><b id="recipeCount">0</b><span>Recipes</span></div><div><b>4.9</b><span>Rating</span></div></div></div>
+      <div class="settings-list"><button id="profileAdd">＋ Share a recipe <span>›</span></button><button data-page="saved">♡ My saved recipes <span>›</span></button><button id="aboutBtn">ⓘ About RecipeHub <span>›</span></button><button class="logout-row" id="logoutBtn">↪ Log out <span>›</span></button></div>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-item active" data-page="home"><span>⌂</span><small>Home</small></button>
+      <button class="nav-item" data-page="saved"><span>♧</span><small>Saved</small></button>
+      <button class="add-nav" id="addRecipeBtn" aria-label="Add a recipe">＋</button>
+      <button class="nav-item" data-page="notifications"><span>♧</span><small>Alerts</small></button>
+      <button class="nav-item" data-page="profile"><span>○</span><small>Profile</small></button>
+    </nav>
+    <div class="home-indicator"></div>
+  </main>
+
+  <div class="modal-backdrop" id="detailModal">
+    <article class="detail-panel">
+      <button class="close-btn" data-close="detailModal">×</button>
+      <div id="detailContent"></div>
+    </article>
+  </div>
+
+  <div class="modal-backdrop" id="filterModal">
+    <article class="dialog">
+      <button class="close-btn" data-close="filterModal">×</button>
+      <p class="eyebrow">MAKE IT YOURS</p><h2>Find your perfect recipe</h2>
+      <label class="field-label">Dietary preference</label>
+      <div class="chips filter-options" id="dietOptions">
+        <button class="chip selected" data-diet="All">All</button><button class="chip" data-diet="Vegetarian">Vegetarian</button><button class="chip" data-diet="Vegan">Vegan</button><button class="chip" data-diet="High protein">High protein</button>
+      </div>
+      <label class="field-label" for="timeFilter">Maximum cooking time</label>
+      <select id="timeFilter"><option value="999">Any time</option><option value="15">15 minutes</option><option value="30">30 minutes</option><option value="45">45 minutes</option></select>
+      <button class="primary-btn full-btn" id="applyFilters">Show recipes</button>
+    </article>
+  </div>
+
+  <div class="modal-backdrop" id="addModal">
+    <article class="dialog">
+      <button class="close-btn" data-close="addModal">×</button>
+      <p class="eyebrow">FROM YOUR KITCHEN</p><h2>Share a recipe</h2>
+      <form id="recipeForm">
+        <label class="field-label">Recipe name<input required name="name" placeholder="e.g. Creamy tomato pasta"></label>
+        <label class="field-label">Food category<select name="category"><option>Vegan</option><option>Non-veg</option><option>Dessert</option><option>Snack</option></select></label>
+        <label class="field-label">Cuisine<select name="cuisine"><option>Indian</option><option>Italian</option><option>Asian</option><option>American</option><option>Healthy</option></select></label>
+        <label class="field-label">Cooking time (minutes)<input required name="time" type="number" min="1" value="25"></label>
+        <label class="field-label">Image URL<input name="image" type="url" placeholder="https://... (optional)"></label>
+        <label class="field-label">Ingredients<input required name="ingredients" placeholder="Tomatoes, pasta, garlic..."></label>
+        <label class="field-label">Preparation steps<textarea required name="steps" rows="3" placeholder="Describe how to prepare it..."></textarea></label>
+        <button class="primary-btn full-btn" type="submit">Publish recipe</button>
+      </form>
+    </article>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
